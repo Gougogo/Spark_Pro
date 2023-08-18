@@ -1,0 +1,15 @@
+spark hadoop flink spark spark flink spark
+spark hadoop flink spark spark flink
+spark hadoop flink spark spark flink
+spark hadoop flink spark spark flink
+spark hadoop flink spark spark flink
+spark hadoop flink spark spark flink
+spark hadoop flink spark spark flink
+spark hadoop hadoop flink hive hive
+spark hadoop hadoop flink hive hive
+spark hadoop hadoop flink hive hive
+hive hbase hbase
+hive hbase flink spark
+hive flink
+flink
+hive flume
