@@ -24,6 +24,7 @@ object CustomSort01 {
     //负号表示降序排序
     //所以像这种先比较第一个，再比较第二个，就可以用元组来处理
 
+
     println(tpRDD.sortBy(t => (-t._3, t._2)).collect().toBuffer)
   }
 }
