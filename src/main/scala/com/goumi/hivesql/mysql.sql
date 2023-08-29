@@ -77,6 +77,11 @@ name VARCHAR(30) NOT NULL,
 `C` double
 );
 
+drop table sqltest.tab2;
+
+select *
+from tab2;
+
 insert into tab2 (name, A, B, C) values ('A', '10','20','30')
                                        ,('B', '3' ,'1','8')
                                        ,('C', '21','14','6')
@@ -85,6 +90,8 @@ insert into tab2 (name, A, B, C) values ('A', '10','20','30')
                                        ,('F', '54','1','24');
 
 select * from tab2;
+
+
 
 
 
@@ -109,11 +116,6 @@ insert into tab3 (mon, dep, yj) values
 ('三月份', 3, 8);
 
 select * from tab3;
-
-
-'一月份', 2
-'二月份', 2
-'三月份', 2
 
 select dep,
        sum(case mon when '一月份' then yj else 0 end) as '一月份',
@@ -169,24 +171,25 @@ create table t_order (
 );
 
 insert into t_user(uid) values
-(1),
-(2),
-(3),
-(4),
-(5),
-(6);
+(7),
+(8),
+(9);
 
 insert into t_order(oid, uid, otime, oamount) values
-(11, 1, '2017-05-21', 30),
-(12, 1, '2017-05-21', 30),
-(13, 2, '2017-05-21', 30),
-(14, 3, '2017-05-21', 30),
-(15, 4, '2017-05-21', 30),
-(16, 5, '2017-05-21', 30),
-(17, 6, '2017-05-21', 30),
-(18, 6, '2017-05-15', 30),
-(19, 6, '2017-05-24', 30),
-(20, 1, '2017-05-21', 15);
+(1, 1, '2017-01-21', 30),
+(2, 1, '2017-02-21', 30),
+(3, 2, '2017-01-21', 30),
+(4, 3, '2017-01-21', 30),
+(5, 4, '2017-01-21', 30),
+(6, 5, '2017-01-21', 30),
+(7, 6, '2017-01-21', 30),
+(8, 6, '2017-02-15', 30),
+(9, 6, '2017-03-24', 30),
+(10, 7, '2017-03-21', 15);
+
+insert into t_order(oid, uid, otime, oamount) values(23, 9, '2017-01-24', 50),
+                                                    (23, 9, '2017-03-15', 10),
+                                                    (23, 9, '2017-03-24', 50);
 
 select * from t_order;
 
@@ -625,7 +628,88 @@ insert into Users (users_id, banned, role) values ('1', 'No', 'client')
 ,('13', 'No', 'driver');
 
 
+select * from tab2;
 
 
+
+
+select name, case when A >= B then A
+                  when B >= C then B
+                  else C end as M
+from tab2;
+
+select name, case when A>=B and A>=C then A
+                  when B>=C and B>=A then B
+                  else C end as M
+from tab2;
+
+
+select * from t_order;
+
+select * from t_user;
+
+TRUNCATE TABLE t_user;
+
+
+select uid, count(case when MONTH(otime) = 1
+from t_order
+group by uid;
+
+
+
+select uid
+     ,sum(case when MONTH(otime) = 1 then 1 else 0 end) as month1Count
+     ,sum(case when MONTH(otime) = 2 then 1 else 0 end) as month2Count
+     ,sum(case when MONTH(otime) = 3 then 1 else 0 end) as month3Count
+from sqltest.t_order
+where MONTH(otime) IN (1, 2, 3)
+group by uid
+
+
+select uid, sum(month1) as month1Count, sum(month2) as month2Count, sum(month3) as month3Count
+from(
+        select uid, otime
+             ,case when MONTH(otime) = 1 then 1 else 0 end as month1
+             ,case when MONTH(otime) = 2 then 1 else 0 end as month2
+             ,case when MONTH(otime) = 3 then 1 else 0 end as month3
+        from sqltest.t_order
+        where MONTH(t_order.otime) IN (1, 2, 3)
+    )t1
+group by t1.uid
+having month1Count = 1 and month2Count = 0
+
+
+select uid
+from sqltest.t_order
+WHERE
+        MONTH(otime) IN (1, 2, 3)
+  AND YEAR(otime) = 2017
+GROUP by uid
+HAVING SUM(CASE WHEN MONTH(otime) = 1 THEN 1 ELSE 0 END) != 0
+   and SUM(CASE WHEN MONTH(otime) = 2 THEN 1 ELSE 0 END) = 0;
+
+select uid, sum(month1) as month1Count, sum(month2) as month2Count, sum(month3) as month3Count
+from(
+        select uid, otime
+             ,case when MONTH(otime) = 1 then 1 else 0 end as month1
+             ,case when MONTH(otime) = 2 then 1 else 0 end as month2
+             ,case when MONTH(otime) = 3 then 1 else 0 end as month3
+        from sqltest.t_order
+        where MONTH(t_order.otime) IN (1, 2, 3)
+    )t1
+group by t1.uid
+having month1Count != 0 and month2Count = 0
+
+select *
+from(
+        select uid
+             ,sum(case when MONTH(otime) = 1 then 1 else 0 end) as month1Count
+             ,sum(case when MONTH(otime) = 2 then 1 else 0 end) as month2Count
+             ,sum(case when MONTH(otime) = 3 then 1 else 0 end) as month3Count
+        from sqltest.t_order
+        where MONTH(otime) IN (1, 2, 3)
+        group by uid
+    )t1
+where t1.month1Count != 0 and t1.month2Count = 0
 
 
