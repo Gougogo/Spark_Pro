@@ -13,9 +13,9 @@ from (
                        c.cc_addr_map_chn['MAI'] as address_cn,
                        regexp_replace(c.cc_addr_map_chn['MAI'], '..路|..开发区|..广场|..大厦', '') as address
                 from dwd.dwd_d_corp_cust c
-                where dt = 'etldate' and c.addresscnisn not null and c.addresscnrlike '[u4e00-u9fa5].+'
+                where dt = 'etldate' and c.addresscnisn not null and c.addresscnr like '[u4e00-u9fa5].+'
             )c join (
-                select regioncode, regiondescription, regexpreplace(regiondescription, '省∣特别新政区∣地区∣自治州∣自治区∣市∣县∣新区','')regiondesc
+                select regioncode, regiondescription, regexpreplace(regiondescription, '省∣特别新政区∣地区∣自治州∣自治区∣市∣县∣新区','') regiondesc
                 from cnedmp.administrativeregioncoder
                 where (regioncoderlike '[1-9]00' or substr(region_description, -1, 1) = '市')
                 end dt = '202010'
