@@ -27,6 +27,7 @@ where rn = 1;
 
 
 
+
 select limit_mb_cust_id
      ,sum(case when min_stage = 1 AND limit_stage = 1 THEN limit_approved_amt
                when min_stage != 1 THEN limit_approved_amt
