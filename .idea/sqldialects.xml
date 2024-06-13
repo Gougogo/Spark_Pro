@@ -4,7 +4,7 @@
     <file url="file://$PROJECT_DIR$/src/main/scala/com/goumi/hivesql/hadoop-121.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/src/main/scala/com/goumi/hivesql/hadoop2-01.sql" dialect="HiveQL" />
     <file url="file://$PROJECT_DIR$/src/main/scala/com/goumi/hivesql/hadoop3-01.sql" dialect="HiveQL" />
-    <file url="file://$PROJECT_DIR$/src/main/scala/com/goumi/hivesql/mysql.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/scala/com/goumi/hivesql/mysql.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>
