@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+<configuration>
+  <!-- Site specific YARN configuration properties -->
+  <property>
+    <name>yarn.resourcemanager.ha.enabled</name>
+    <value>true</value>
+  </property>
+  <!--打开高可用-->
+  <property>
+    <name>yarn.resourcemanager.ha.automatic-failover.enabled</name>
+    <value>true</value>
+  </property>
+  <!--启动故障自动恢复-->
+  <property>
+    <name>yarn.resourcemanager.ha.automatic-failover.embedded</name>
+    <value>true</value>
+  </property>
+  <!--rm 启动内置选举 active-->
+  <property>
+    <name>yarn.resourcemanager.cluster-id</name>
+    <value>yarn-rm-cluster</value>
+  </property>
+  <!--给 yarn cluster 取个名字 yarn-rm-cluster-->
+  <property>
+    <name>yarn.resourcemanager.ha.rm-ids</name>
+    <value>rm1,rm2</value>
+  </property>
+  <!--ResourceManager 高可用 rm1,rm2-->
+  <property>
+    <name>yarn.resourcemanager.hostname.rm1</name>
+    <value>hadoop2-01</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.hostname.rm2</name>
+    <value>hadoop2-02</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.recovery.enabled</name>
+    <value>true</value>
+  </property>
+  <!--启用 resourcemanager 自动恢复-->
+  <property>
+    <name>yarn.resourcemanager.store.class</name>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
+  </property>
+  <!--用于保存应用程序/尝试状态和凭据的状态存储的类名，基于 Zookeeper 实现-->
+  <property>
+    <name>hadoop.zk.address</name>
+    <value>hadoop2-01:2181,hadoop2-02:2181,hadoop2-03:2181</value>
+  </property>
+  <!--配置 Zookeeper 地址作为状态存储和 leader 选举-->
+  <property>
+    <name>yarn.resourcemanager.address.rm1</name>
+    <value>hadoop2-01:8032</value>
+  </property>
+  <!--rm1 端口号-->
+  <property>
+    <name>yarn.resourcemanager.scheduler.address.rm1</name>
+    <value>hadoop2-01:8034</value>
+  </property>
+  <!-- rm1 调度器的端口号-->
+  <property>
+    <name>yarn.resourcemanager.webapp.address.rm1</name>
+    <value>hadoop2-01:8088</value>
+  </property>
+  <!-- rm1 webapp 端口号-->
+  <property>
+    <name>yarn.resourcemanager.address.rm2</name>
+    <value>hadoop2-02:8032</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.scheduler.address.rm2</name>
+    <value>hadoop2-02:8034</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.webapp.address.rm2</name>
+    <value>hadoop2-02:8088</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+  </property>
+  <!--执行 MapReduce 需要配置的 shuffle 过程-->
+
+  <!--是否启动一个线程检查每个任务正使用的物理内存量，如果任务超出分配值，则直接将其杀掉，默认是true -->
+  <property>
+          <name>yarn.nodemanager.pmem-check-enabled</name>
+          <value>false</value>
+  </property>
+  <!--是否启动一个线程检查每个任务正使用的虚拟内存量，如果任务超出分配值，则直接将其杀掉，默认是true -->
+  <property>
+          <name>yarn.nodemanager.vmem-check-enabled</name>
+          <value>false</value>
+  </property>
+  <!--yarn容器允许管理的物理内存大小-->
+  <property>
+    <name>yarn.nodemanager.resource.memory-mb</name>
+    <value>6144</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.resource.cpu-vcores</name>
+    <value>8</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.maximum-allocation-mb</name>
+    <value>3027</value>
+  </property>
+  <property>
+    <name>yarn.scheduler.minimum-allocation-mb</name>
+    <value>512</value>
+  </property>
+</configuration>
