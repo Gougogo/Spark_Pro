@@ -15,6 +15,7 @@ object TestHiveSql {
       .enableHiveSupport()
       .getOrCreate()
 
+
     spark.sql("select * from default.student_table").show()
   }
 
