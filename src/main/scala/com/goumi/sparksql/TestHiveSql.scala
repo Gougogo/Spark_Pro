@@ -10,6 +10,7 @@ object TestHiveSql {
   def main(args: Array[String]): Unit = {
 
 
+
     val spark: SparkSession = SparkSession.builder()
       .appName(this.getClass.getSimpleName)
       .enableHiveSupport()
